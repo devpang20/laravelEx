@@ -12,5 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('errors.503');
+});
+
+Route::get('/greeting', function () {
+    return view('welcome', [
+        'name' => 'foo',
+        'greeting' => 'hi',
+    ]);
 });
