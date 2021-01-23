@@ -30,7 +30,7 @@ Route::get('/greeting', function () {
 
 Route::get('auth/login', function () {
     $credentials = [
-        'email' => 'john@ecample.com',
+        'email' => 'jhone@example.com',
         'password' => 'password'
     ];
 
