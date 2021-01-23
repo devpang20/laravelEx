@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Routing\Route;
+
 Route::get('/', function () {
 
     $items = ['A', 'B', 'C'];
@@ -23,4 +25,33 @@ Route::get('/greeting', function () {
         'name' => 'foo',
         'greeting' => 'hi'
     ]);
+});
+
+Route::get('auth/login', function () {
+    $credentials = [
+        'email' => 'john@ecample.com',
+        'password' => 'password'
+    ];
+
+    if(! auth()->attempt($credentials)) {
+        return '로그인 정보가 정확하지 않습니다.';
+    }
+
+    return redirect('protected');
+});
+
+Route::get('protected', function () {
+    dump(session()->all());
+    
+    if (! auth()->check()) {
+        return '누구세요?';
+    }
+
+    return '오서오세요' . auth()->user()->name;
+});
+
+Route::get('auth/logout', function () {
+    auth()->logout();
+
+    return '또 봐요!';
 });
