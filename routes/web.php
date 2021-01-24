@@ -41,7 +41,7 @@ Route::get('auth/login', function () {
     return redirect('protected');
 });
 
-Route::get('protected', function () {
+Route::get('protected', ['middlewore' => 'auth', function () {
     dump(session()->all());
     
     if (! auth()->check()) {
@@ -49,10 +49,13 @@ Route::get('protected', function () {
     }
 
     return '오서오세요' . auth()->user()->name;
-});
+}]);
 
 Route::get('auth/logout', function () {
     auth()->logout();
 
     return '또 봐요!';
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
